@@ -5,9 +5,9 @@ William Fraser
 %}
 
 %{
-        L ? (i) 
+        L - (i) 
      W   ___________________________
-     ?  |1 8                        |
+     |  |1 8                        |
     (j) |2 ?                        |
         |3                          |
         |4                          |
@@ -21,7 +21,6 @@ L = 15;
 
 G = zeros(W*L);
 B = zeros(1,W*L);
-%B(1:W) = 1;
 
 for i = 1:L
     for j = 1:W
@@ -36,24 +35,20 @@ for i = 1:L
         elseif(j==1)
             nxm = j + (i-2)*W;
             nxp = j + i*W;
-            %nym = j-1 + (i-1)*L;
             nyp = j + 1 + (i-1)*W;
             
             G(n,n) = 1;
             G(n,nxm) = 0;
             G(n,nxp) = 0;
             G(n,nyp) = -1;
-            %G(n,nym) = 1;
         elseif(j==W)
             nxm = j + (i-2)*W;
             nxp = j + i*W;
             nym = j-1 + (i-1)*W;
-            %nyp = j + 1 + (i-1)*L;
             
             G(n,n) = 1;
             G(n,nxm) = 0;
             G(n,nxp) = 0;
-            %G(n,nyp) = 1;
             G(n,nym) = -1; 
         else
             nxm = j + (i-2)*W;
@@ -88,4 +83,16 @@ end
 
 surf(solution)
 colormap cool
+xlabel('X Position')
+ylabel('Y Position')
+title('Solution to the Laplace Equation for Case 1')
 colorbar
+
+xPos = linspace(1,15,15);
+figure(2)
+plot(xPos,solution(1,:),'b');
+hold on
+xlim([1 15]);
+xlabel('X Position')
+ylabel('Electrostatic Potential (Units of V0)')
+title('Solution to the Laplace Equation for Case 1')
